@@ -1,0 +1,24 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+        //maven {url 'http://dl.bintray.com/amulyakhare/maven'}
+        jcenter()
+        maven { url "https://jitpack.io" }
+
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        //maven {url 'http://dl.bintray.com/amulyakhare/maven'}
+        jcenter()
+        maven { url "https://jitpack.io" }
+
+    }
+}
+rootProject.name = "ReminderApp"
+include ':app'

@@ -10,7 +10,6 @@ import android.widget.CursorAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.amulyakhare.textdrawable.TextDrawable
-
 import com.amulyakhare.textdrawable.util.ColorGenerator
 
 

@@ -16,7 +16,7 @@ class SecondFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_second, container, false)
         view.rootView.findViewById<TextView>(R.id.textView4).setOnClickListener{
-            val i = Intent(requireContext(),MainActivity::class.java)
+            val i = Intent(requireContext(),MainActivity2::class.java)
             startActivity(i)
         }
         return view

@@ -1,11 +1,10 @@
-
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context=".AddReminder">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_height="wrap_content"
@@ -313,9 +312,9 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:onClick="selectFab1"
-        fab:fab_icon="@drawable/ic_notifications_off_grey600_24dp"
-        fab:fab_colorNormal="@color/colorAccent"
-        fab:fab_colorPressed="@color/fab_pressed"
+        app:fab_icon="@drawable/ic_notifications_off_grey600_24dp"
+        app:fab_colorNormal="@color/colorAccent"
+        app:fab_colorPressed="@color/fab_pressed"
         app:fab_size="normal"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="168dp"
@@ -328,13 +327,14 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:onClick="selectFab2"
-        fab:fab_icon="@drawable/ic_notifications_on_white_24dp"
-        fab:fab_colorNormal="@color/colorAccent"
-        fab:fab_colorPressed="@color/fab_pressed"
+        app:fab_icon="@drawable/ic_notifications_on_white_24dp"
+        app:fab_colorNormal="@color/colorAccent"
+        app:fab_colorPressed="@color/fab_pressed"
         app:fab_size="normal"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="168dp"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="8dp"/>
+
 
 </RelativeLayout>

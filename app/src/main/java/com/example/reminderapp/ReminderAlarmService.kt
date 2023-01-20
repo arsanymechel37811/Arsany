@@ -18,11 +18,8 @@ class ReminderAlarmService : IntentService(TAG) {
         val uri = intent!!.data
 
         //Display a notification to view the task details
-        val action = Intent(this, AddReminderActivity::class.java)
+        val action = Intent(this, AddReminder::class.java)
         action.data = uri
-        val operation = TaskStackBuilder.create(this)
-            .addNextIntentWithParentStack(action)
-            .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
 
         //Grab the task description
         if (uri != null) {

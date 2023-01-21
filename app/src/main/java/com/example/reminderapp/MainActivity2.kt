@@ -4,17 +4,21 @@ import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.*
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.getbase.floatingactionbutton.FloatingActionButton
 import java.util.*
 
@@ -23,12 +27,26 @@ class MainActivity2 : AppCompatActivity(),androidx.loader.app.LoaderManager.Load
     private var mToolbar: Toolbar? = null
     var mCursorAdapter: AlarmCursorAdapter? = null
     var reminderListView: ListView? = null
+    private lateinit var permissionlauncher: ActivityResultLauncher<Array<String>>
+    private var isNot = false
+    private var isSch = false
+    private var isAla = false
+    private var isUse = false
 
     @SuppressLint("MissingInflatedId")
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        permissionlauncher = registerForActivityResult(
+            ActivityResultContracts.
+        RequestMultiplePermissions()){permissions->
+            isNot = permissions[android.Manifest.permission.POST_NOTIFICATIONS] ?: isNot
+            isSch = permissions[android.Manifest.permission.SCHEDULE_EXACT_ALARM] ?: isSch
+            isAla = permissions[android.Manifest.permission.SET_ALARM] ?: isAla
+            isUse = permissions[android.Manifest.permission.USE_EXACT_ALARM] ?: isUse
+        }
+        requestpermission()
         mToolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(mToolbar)
         mToolbar!!.setTitle(R.string.app_name)
@@ -62,6 +80,31 @@ class MainActivity2 : AppCompatActivity(),androidx.loader.app.LoaderManager.Load
             )
             manager.createNotificationChannel(channel)
         }
+    }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestpermission(){
+        isNot = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+        isSch = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.SCHEDULE_EXACT_ALARM
+        ) == PackageManager.PERMISSION_GRANTED
+        isAla = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.SET_ALARM
+        ) == PackageManager.PERMISSION_GRANTED
+        isUse = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.USE_EXACT_ALARM
+        ) == PackageManager.PERMISSION_GRANTED
+        val permissionrequest : MutableList<String> = ArrayList()
+        if(!isNot){permissionrequest.add(android.Manifest.permission.POST_NOTIFICATIONS)}
+        if(!isSch){permissionrequest.add(android.Manifest.permission.SCHEDULE_EXACT_ALARM)}
+        if(!isUse){permissionrequest.add(android.Manifest.permission.USE_EXACT_ALARM)}
+        if(!isAla){permissionrequest.add(android.Manifest.permission.SET_ALARM)}
+        if(permissionrequest.isNotEmpty()){ permissionlauncher.launch(permissionrequest.toTypedArray())}
     }
 
     fun not(view: View?) {
